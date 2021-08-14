@@ -1,0 +1,3 @@
+pyannote.audio==1.1.1
+youtube_dl
+youtube_transcript_api
