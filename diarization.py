@@ -11,23 +11,43 @@ import argparse
 
 
 def execute_diarization(audio_filepath):
+    """
+    Execute diarization pipeline using pyannote-audio. Source: https://github.com/pyannote/pyannote-audio
+        Parameters:
+        audio_filepath (str): mp3 audio filepath.
 
+        Returns:
+        String: returns json filepath or False.
+    """
     pipeline = torch.hub.load('pyannote/pyannote-audio', 'dia_ami')
 
     filename = basename(audio_filepath)
     folder = dirname(audio_filepath)
     output_json = join(folder, 'segments.json')
 
-    test_file = {'uri': filename, 'audio': audio_filepath}
+    input_diarization_file = {'uri': filename, 'audio': audio_filepath}
 
-    diarization = pipeline(test_file)
-    data = diarization.for_json()
+    try:
+        diarization = pipeline(input_diarization_file)
+        data = diarization.for_json()
 
-    with open(output_json, 'w') as f:
-        json.dump(data, f, ensure_ascii=False)
+    except:
+        print("Error: Unable to execute diarization pipeline.")
+        return False
+
+    try:
+        with open(output_json, 'w') as f:
+            json.dump(data, f, ensure_ascii=False)
+
+    except TypeError:
+        print("Error: Unable to dump to the json file")
+        return False
+
+    return output_json
 
 
 def main():
+
     parser = argparse.ArgumentParser()
     parser.add_argument('--input_file', default='', help="mp3 filepath")
 

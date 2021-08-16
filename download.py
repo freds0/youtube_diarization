@@ -15,6 +15,7 @@ from pathlib import Path
 from urllib.parse import parse_qs, urlparse
 from random import randint
 
+
 def my_progress(d):
     '''
     Show download progress.
@@ -23,12 +24,14 @@ def my_progress(d):
         print('Done downloading, now converting ...')
 
 
-def download_from_youtube(yt_url, output_path, video_download = False): # function for ingesting when given a url
+def download_from_youtube(yt_url, output_path, video_download = False, transcript_download = False): # function for ingesting when given a url
     '''
     Download audio and subtitle from a youtube video given a url.
         Parameters:
         yt_url (str): Youtube URL format https://www.youtube.com/watch?v=XXXXXXXXXXX
         output_path (str): folder to save youtube audio.
+        video_download (Boolean): True for downloading video mp4.
+        transcript_download (Boolean): True for transcription from youtube.
 
         Returns:
         String: returns True or False
@@ -98,32 +101,33 @@ def download_from_youtube(yt_url, output_path, video_download = False): # functi
         #####################################################################################
         # Download Transcript
         #####################################################################################
-        # get video_id from youtube_uri
-        video_id = yt_url.replace('https://www.youtube.com/watch?v=','')
-        # Download subtitle and write to an .srt file
-        transcript_list = YouTubeTranscriptApi.list_transcripts(video_id)
-        '''
-        # filter first for manually created transcripts and second for automatically generated ones
-        transcript = transcript_list.find_transcript(['en'])
-        # get only text from transcript
-        text_transcript_list = []
-        for line in transcript.fetch():
-            text_transcript_list.append(line['text'])
-        text_transcript = ' '.join(text_transcript_list)
-        '''
-        # filter for manually created transcripts
-        transcript = transcript_list.find_manually_created_transcript(['pt'])
-        text_transcript_list = []
-        for line in transcript.fetch():
-            text_transcript_list.append(line['text'])
-        text_transcript = ' '.join(text_transcript_list)
+        if transcript_download:
+            # get video_id from youtube_uri
+            video_id = yt_url.replace('https://www.youtube.com/watch?v=','')
+            # Download subtitle and write to an .srt file
+            transcript_list = YouTubeTranscriptApi.list_transcripts(video_id)
+            '''
+            # filter first for manually created transcripts and second for automatically generated ones
+            transcript = transcript_list.find_transcript(['en'])
+            # get only text from transcript
+            text_transcript_list = []
+            for line in transcript.fetch():
+                text_transcript_list.append(line['text'])
+            text_transcript = ' '.join(text_transcript_list)
+            '''
+            # filter for manually created transcripts
+            transcript = transcript_list.find_manually_created_transcript(['pt'])
+            text_transcript_list = []
+            for line in transcript.fetch():
+                text_transcript_list.append(line['text'])
+            text_transcript = ' '.join(text_transcript_list)
 
-        #####################################################################################
-        # Write transcript to file
-        #####################################################################################
-        output_file = open(join(video_dir, vid.strip() + '.srt'), 'w')
-        output_file.write(text_transcript)
-        output_file.close()
+            #####################################################################################
+            # Write transcript to file
+            #####################################################################################
+            output_file = open(join(video_dir, vid.strip() + '.srt'), 'w')
+            output_file.write(text_transcript)
+            output_file.close()
 
     except KeyboardInterrupt:
         print("KeyboardInterrupt Detected!")
@@ -135,7 +139,8 @@ def download_from_youtube(yt_url, output_path, video_download = False): # functi
         print(exc_type, exc_file, exc_tb.tb_lineno)
         return False
 
-    return audio_filename
+    return audio_filename.replace('.tmp', '.mp3')
+
 
 def main():
     parser = argparse.ArgumentParser()
@@ -162,6 +167,7 @@ def main():
         #else:
         #    print("URL of the video file should start with https://")
         #    sys.exit(1)
+
 
 if __name__ == '__main__':
     main()

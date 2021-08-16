@@ -1,5 +1,4 @@
 {
   "youtube_list": "input/links.txt", 
-  "videos_folder": "output/videos", 
-  "language": "python"
+  "videos_folder": "output/videos"
 }

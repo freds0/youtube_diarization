@@ -43,21 +43,18 @@ class Segment:
 
 def create_segments_list_from_json(json_path):
     """
-    Creates a list of segments from the json file resulting from aeneas processing.
+    Creates a list of segments from the json file resulting from pyannote processing.
     """
 
     head = None
     with  open(json_path) as jfile :
         data = json.load(jfile)
+        wav_filename = data['uri'].split('.')[0]
         for i, fragment in enumerate(data['content']):
             begin = fragment['segment']['start']*1000
             end   = fragment['segment']['end']*1000
-            filename = '{}-{:04d}'.format(fragment['label'], i)
-            '''
-            text = fragment['lines']
-            begin = float(fragment['begin'])*1000
-            end = float(fragment['end'])*1000
-            '''
+            filename = '{}-{}-{}-{:04d}.wav'.format(wav_filename, fragment['label'], fragment['track'], i)
+
             # Build a segment list
             segment = Segment(begin, end, filename)
             if head is None:
@@ -94,9 +91,9 @@ def create_audio_files_from_segments_list(audio_file, filenames_base, head_list,
         text = curr.text
         audio_segment = sound[begin:end]
         #filename = '{}-{:04d}.wav'.format(filenames_base, i)
-        filename = curr.filename + '.wav'
-        curr.set_filename_and_id(filename, i)
-        filepath = os.path.join(output_dir, filename)
+        #filename = curr.filename + '.wav'
+        curr.set_filename_and_id(curr.filename, i)
+        filepath = os.path.join(output_dir, curr.filename)
         try:
             audio_segment.export(filepath, 'wav')
         except IOError:
@@ -156,11 +153,13 @@ def segment_audio(audio_path, json_path, output_path, metadata_output_file, file
         return False
     return True
     '''
+    return True
+
 
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--base_dir', default='./')
-    parser.add_argument('--audio_file', default='neymar2.wav', help='Filename to input audio file')
+    parser.add_argument('--audio_file', default='audio.wav', help='Filename to input audio file')
     parser.add_argument('--filename_base', default='audio', help='Filename base of splited audios file. Ex. audio-0001.wav')
     parser.add_argument('--json_file', default='teste.json', help='Filename of input json file')
     parser.add_argument('--output_dir', default='output', help='Output dir')
