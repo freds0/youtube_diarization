@@ -45,8 +45,6 @@ def execute_pipeline(youtube_links_filepath, output_dir):
         if not mp3_audio_filepath:
             print("Error: Unable to download mp3 from youtube.")
             return False
-
-        mp3_audio_filepath = '/home/fred/Documentos/pyannote-audio/audios/youtube_diarization/output/videos/xFErjZ1Qubo/xFErjZ1Qubo.mp3'
         #
         # (2) Converting mp3 to wav
         #
