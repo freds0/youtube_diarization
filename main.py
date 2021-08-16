@@ -79,7 +79,10 @@ def execute_pipeline(youtube_links_filepath, output_dir):
             print("Error: Unable to create audio segments.")
             return False
 
-        return True
+        if r:
+            print("Success!")
+
+    return True
         
 
 def main():
@@ -103,11 +106,6 @@ def main():
     youtube_links_filepath = args_data['youtube_list']
 
     r = execute_pipeline(youtube_links_filepath, output_dir)
-
-    if r:
-        print("Success!")
-    else:
-        print('Fail!')
 
 if __name__ == '__main__':
     main()
