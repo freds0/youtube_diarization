@@ -34,7 +34,6 @@ def execute_pipeline(youtube_links_filepath, output_dir):
         f.close()
 
     for youtube_link in youtube_links_list:
-        '''
         #
         # (1) Download audio from youtube
         #
@@ -58,9 +57,6 @@ def execute_pipeline(youtube_links_filepath, output_dir):
         except:
             print("Error: Unable to convert mp3 to wav.")
             return False
-        '''
-        wav_audio_filepath = '/home/fred/Documentos/pyannote-audio/audios/youtube_diarization/output/videos/xFErjZ1Qubo/xFErjZ1Qubo.wav'
-        json_path = '/home/fred/Documentos/pyannote-audio/audios/youtube_diarization/output/videos/xFErjZ1Qubo/segments.json'
         #
         # (3) Audio diarization
         #
