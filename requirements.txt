@@ -1,3 +1,6 @@
+torch==1.9.0
 pyannote.audio==1.1.1
-youtube_dl
-youtube_transcript_api
+youtube-dl==2021.6.6
+youtube-transcript-api==0.4.1
+pydub==0.25.1
+protobuf==3.19.0
