@@ -4,7 +4,15 @@ This tools download audios from youtube and execute diarization by speaker using
 
 ## Installation
 
-Create a conda environment:
+This project has been tested on Ubuntu 20.04.4 LTS. First, you need to install the [FFmpeg](https://ffmpeg.org/) program using the following command:
+
+```bash
+$ sudo apt update; apt install ffmpeg
+```
+
+Then you can create an environment using [Anaconda](https://www.anaconda.com/). You can create an environment from scratch or using a yml file.
+
+To create a conda environment from scratch, run the following commands
 
 ```bash
 $ conda create -n youtube_diarization python=3.8 pip
@@ -22,7 +30,7 @@ Use the package manager pip to install the requirements.
 $ pip install -r requirements.txt
 ```
 
-Or use the yml file:
+Alternatively, you can create a conda env using the yml file by running the following command:
 
 ```bash
 $ conda env create -f environment.yml
