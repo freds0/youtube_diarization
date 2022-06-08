@@ -9,6 +9,13 @@ Create a conda environment:
 ```bash
 $ conda create -n youtube_diarization python=3.8 pip
 ```
+
+Activate the environment:
+
+```bash
+$ conda activate youtube_diarization
+```
+
 Use the package manager pip to install the requirements.
 
 ```bash
