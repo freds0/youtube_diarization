@@ -1,4 +1,4 @@
 {
   "youtube_list": "input/links.txt", 
-  "videos_folder": "output/videos"
+  "videos_folder": "output/"
 }

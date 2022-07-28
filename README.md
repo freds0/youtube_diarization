@@ -7,15 +7,30 @@ This tools download audios from youtube and execute diarization by speaker using
 Create a conda environment:
 
 ```bash
-$ conda create -n youtube_diarization python=3.8 pip
+$ conda create -n youtube_diarization python=3.9 pip
 ```
 Use the package manager pip to install the requirements.
+
+First, install speechbrain (torch is a requirement):
+
+```bash
+$ conda install pytorch==1.11.0 torchvision==0.12.0 torchaudio==0.11.0 -c pytorch
+$ pip install speechbrain
+```
+
+After, install pyannote-audio:
+
+```bash
+$ pip install https://github.com/pyannote/pyannote-audio/archive/develop.zip
+```
+
+Finally, install other requirements:
 
 ```bash
 $ pip install -r requirements.txt
 ```
 
-Or use the yml file:
+### Using the yml file
 
 ```bash
 $ conda env create -f environment.yml

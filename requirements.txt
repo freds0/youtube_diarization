@@ -1,3 +1,6 @@
-pyannote.audio==1.1.1
-youtube_dl
-youtube_transcript_api
+pyannote.audio==2.0.1
+youtube-dl==2021.6.6
+youtube-transcript-api==0.4.1
+pydub==0.25.1
+librosa==0.9.2
+protobuf==3.19.0

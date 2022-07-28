@@ -57,7 +57,7 @@ def download_from_youtube(yt_url, output_path, video_download = False, transcrip
     # Get information on the YouTube content
     try:
         # Random time do waiting to avoid youtube access blocking
-        t = randint(30,60) 
+        t = randint(30,60)
         print('Waiting %d seconds ...'%(t))
         time.sleep(t) # Overcome YouTube blocking
 

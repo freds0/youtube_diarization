@@ -4,11 +4,11 @@
 # (C) 2021 Frederico Oliveira fred.santos.oliveira(at)gmail.com
 #
 #
-import torch
+#import torch
 from os.path import basename, dirname, join
 import json
 import argparse
-
+from pyannote.audio import Pipeline
 
 def execute_diarization(audio_filepath):
     """
@@ -19,16 +19,18 @@ def execute_diarization(audio_filepath):
         Returns:
         String: returns json filepath or False.
     """
-    pipeline = torch.hub.load('pyannote/pyannote-audio', 'dia_ami')
+    #pipeline = torch.hub.load('pyannote/pyannote-audio', 'dia_ami')
+    pipeline = Pipeline.from_pretrained("pyannote/speaker-diarization")
 
     filename = basename(audio_filepath)
     folder = dirname(audio_filepath)
     output_json = join(folder, 'segments.json')
 
-    input_diarization_file = {'uri': filename, 'audio': audio_filepath}
+    #input_diarization_file = {'uri': filename, 'audio': audio_filepath}
 
     try:
-        diarization = pipeline(input_diarization_file)
+        #diarization = pipeline(input_diarization_file)
+        diarization = pipeline(audio_filepath)
         data = diarization.for_json()
 
     except:
@@ -50,7 +52,6 @@ def main():
 
     parser = argparse.ArgumentParser()
     parser.add_argument('--input_file', default='', help="mp3 filepath")
-
     args = parser.parse_args()
     execute_diarization(args.input_file)
 
