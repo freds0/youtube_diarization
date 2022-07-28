@@ -79,7 +79,7 @@ For execution it is necessary to use a configuration file, such as the config.js
 ```
 {
   "youtube_list": "input/links.txt", 
-  "videos_folder": "output/videos"
+  "videos_folder": "output/"
 }
 ```
 
